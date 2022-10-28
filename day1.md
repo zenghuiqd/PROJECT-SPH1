@@ -164,3 +164,5 @@ this.$router.push({name:'search',params:{keyword:''||undefined} })
 
 9.5: 路由组件能不能传递props数据?
   可以的 并且有三种方式
+  test
+  
