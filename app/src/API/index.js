@@ -12,5 +12,7 @@ export const reqGetBannerList= ()=>mockRuests({url:'/banner',method:'get'})
 export const reqGetFloorList= ()=>mockRuests({url:'/floor',method:'get'})
 // 获取收货模块数据  /api/list  post  参数:需要带参数
 export const reqGetSearchInfo = (params)=>requests({url:'/list',method:'post',data:params})
+//获取产品详情信息的接口 /api/item/${skuId} 请求方式:get
+export const reqGoodsInfo = (skuId)=>requests({url:`/item/${skuId}`,method:'get'})
 
 

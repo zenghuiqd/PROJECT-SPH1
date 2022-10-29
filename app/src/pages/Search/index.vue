@@ -36,7 +36,7 @@
             <div class="navbar-inner filter">
               <!-- 价格结构 -->
               <ul class="sui-nav">
-                 <li :class="{ active: isOne }" @click="sort(1)">
+                <li :class="{ active: isOne }" @click="sort(1)">
                   <a>综合<span v-show="isOne" class="iconfont"
                       :class="{ 'icon-DOWN': isDesc, 'icon-UP': isAsc }"></span></a>
                 </li>
@@ -53,7 +53,11 @@
               <li class="yui3-u-1-5" v-for="(good, index) in goodsList" :key="good.id">
                 <div class="list-wrap">
                   <div class="p-img">
-                    <a href="item.html" target="_blank"><img :src="good.defaultImg" /></a>
+                    <!-- 在路由跳转的时候不要忘记带参数 -->
+                    <router-link :to="`/detail/${good.id}`">
+                      <img :src="good.defaultImg" />
+                    </router-link>
+
                   </div>
                   <div class="price">
                     <strong>
@@ -77,7 +81,7 @@
             </ul>
           </div>
           <!-- 分页器 -->
-          <Pagination :pageNo="searchParmas.pageNo" :pageSize="searchParmas.pageSize" :total="total" :continues="5"/>
+          <Pagination :pageNo="searchParmas.pageNo" :pageSize="searchParmas.pageSize" :total="total" :continues="5" />
         </div>
       </div>
     </div>
@@ -86,7 +90,7 @@
 
 <script>
 import SearchSelector from './SearchSelector/SearchSelector'
-import { mapGetters,mapState } from 'vuex';
+import { mapGetters, mapState } from 'vuex';
 export default {
   name: 'Search',
   data() {
@@ -107,7 +111,7 @@ export default {
         //分页器用的:代表当前是第几页
         "pageNo": 1,
         //每页展示的数据个数
-        "pageSize": 10,
+        "pageSize": 3,
         //平台售卖属性操作带的参数
         "props": [],
         //品牌
@@ -133,11 +137,11 @@ export default {
   },
   computed: {
     ...mapGetters(['goodsList']),
-   
-    isOne(){
+
+    isOne() {
       return this.searchParmas.order.indexOf("1") != -1
     },
-    isTwo(){
+    isTwo() {
       return this.searchParmas.order.indexOf("2") != -1
     },
     isDesc() {
@@ -147,7 +151,7 @@ export default {
       return this.searchParmas.order.indexOf("asc") != -1;
     },
     ...mapState({
-      total:state => state.search.searchList.total
+      total: state => state.search.searchList.total
     }),
   },
   methods: {
@@ -198,7 +202,7 @@ export default {
       props = `${attr.attrId}:${attrValue}:${attr.attrName}`
     },
     removeAttr(index) {
-      this.searchParmas.props.splice(index,1);
+      this.searchParmas.props.splice(index, 1);
       this.getData();
     },
     sort(flag) {
